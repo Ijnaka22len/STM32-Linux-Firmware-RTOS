@@ -1,4 +1,11 @@
-/* Minimal GNU linker script for STM32F446RE bare-metal example. */
+/*
+ * STM32F446RE bare-metal memory layout.
+ * Flash: 512 KiB at 0x08000000.
+ * SRAM:  128 KiB at 0x20000000.
+ *
+ * This script supports the standalone polling example. It does not
+ * configure a C library heap or enforce a dedicated stack reservation.
+ */
 ENTRY(Reset_Handler)
 
 MEMORY
@@ -6,6 +13,7 @@ MEMORY
     FLASH (rx)  : ORIGIN = 0x08000000, LENGTH = 512K
     RAM   (rwx) : ORIGIN = 0x20000000, LENGTH = 128K
 }
+
 _estack = ORIGIN(RAM) + LENGTH(RAM);
 
 SECTIONS
@@ -16,6 +24,7 @@ SECTIONS
         KEEP(*(.isr_vector))
         . = ALIGN(4);
     } > FLASH
+
     .text :
     {
         . = ALIGN(4);
@@ -24,6 +33,7 @@ SECTIONS
         . = ALIGN(4);
         _etext = .;
     } > FLASH
+
     .data :
     {
         . = ALIGN(4);
@@ -33,6 +43,7 @@ SECTIONS
         _edata = .;
     } > RAM AT > FLASH
     _sidata = LOADADDR(.data);
+
     .bss (NOLOAD) :
     {
         . = ALIGN(4);
@@ -42,6 +53,7 @@ SECTIONS
         . = ALIGN(4);
         _ebss = .;
     } > RAM
+
     /DISCARD/ :
     {
         *(.comment*)

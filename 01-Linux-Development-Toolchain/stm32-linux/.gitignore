@@ -1,3 +1,4 @@
+# Cross-compiler and linker outputs
 build/
 *.o
 *.d
@@ -5,3 +6,7 @@ build/
 *.bin
 *.hex
 *.map
+
+# Local editor artifacts
+*.swp
+*~
