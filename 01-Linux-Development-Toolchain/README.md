@@ -6,7 +6,7 @@ I established a native **Debian GNU/Linux 13** development workflow for the **ST
 
 The reference application configures the onboard green **LD2 LED (PA5)** through memory-mapped registers and repeatedly toggles its output. No STM32CubeIDE, HAL, or RTOS is required for this experiment.
 
-**Validation status:** The repository's Stage 01 example was built and programmed on the target on **November 1, 2026**. OpenOCD reported successful programming, verification, and reset. Continuous LD2 blinking was also verified during the preceding equivalent bare-metal experiment.
+**Validation status:** The repository's Stage 01 example was built and programmed on the target board **STM32: NUCLEO-F446RE**. OpenOCD reported successful programming, verification, and reset. Continuous LD2 blinking was also verified during the preceding equivalent bare-metal experiment.
 
 ## 1. Hardware and development environment
 
