@@ -1,4 +1,4 @@
-# Stage 01 — Linux-Based STM32 Development & Debugging
+# Stage 01 - Linux-Based STM32 Development & Debugging
 
 ## Overview
 
@@ -173,13 +173,13 @@ OpenOCD also emitted `Error: timeout waiting for ITM_TCR_BUSY_BIT` during target
 
 I use two terminal sessions for interactive debugging.
 
-**Terminal A — OpenOCD server:**
+**Terminal A - OpenOCD server:**
 
 ```bash
 make debug-server
 ```
 
-**Terminal B — GDB client:**
+**Terminal B - GDB client:**
 
 ```bash
 make debug
