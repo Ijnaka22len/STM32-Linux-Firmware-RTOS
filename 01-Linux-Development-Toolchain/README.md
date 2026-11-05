@@ -1,4 +1,4 @@
-# Stage 01 - Linux-Based STM32 Development & Debugging
+# 01 - Linux-Based STM32 Development and Debugging
 
 ## Overview
 
