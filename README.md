@@ -1,4 +1,4 @@
-# Linux-Based STM32 Firmware & RTOS Development
+# Linux-Based STM32 Firmware and RTOS Development
 
 **Repository:** `STM32-Linux-Firmware-RTOS`
 
@@ -19,17 +19,17 @@
 
 ## Project tracks
 
-### 01 — Linux-Based STM32 Development & Debugging
+### 01 - Linux-Based STM32 Development & Debugging
 
 Cross-compilation, startup code, linker scripts, Makefile-based builds, ELF/BIN/HEX generation, ST-LINK programming, and source-level debugging with OpenOCD and GDB.
 
 **Validated so far:** A bare-metal PA5/LD2 LED-blinking application was compiled on Debian, flashed through OpenOCD, verified, and observed running on the NUCLEO-F446RE.
 
-### 02 — Bare-Metal Firmware & Peripheral Driver Development
+### 02 - Bare-Metal Firmware & Peripheral Driver Development
 
 Register-level hardware programming and reusable drivers, with planned experiments in GPIO, UART, SPI, I²C, timers, ADC, and interrupts.
 
-### 03 — FreeRTOS & Real-Time Systems Engineering
+### 03 - FreeRTOS & Real-Time Systems Engineering
 
 Priority-based scheduling, periodic tasks, preemption, synchronization, timing jitter, execution-time profiling, and scheduling performance analysis. Earlier experiments on STM32CubeIDE provide a starting point; integration into this Debian-native repository is a future milestone.
 
@@ -87,13 +87,12 @@ break main
 continue
 ```
 
-## Current status and roadmap
-
+## Progress(currently working stages)
 - [x] Configure the ARM cross-compilation toolchain on Debian GNU/Linux 13
 - [x] Build a standalone bare-metal STM32 firmware image using Make
 - [x] Flash and verify firmware through OpenOCD and ST-LINK
 - [x] Confirm onboard LD2 (PA5) LED blinking
-- [ ] Publish and document the working Linux-native source project
+- [x] Publish and document the working Linux-native source project
 - [ ] Develop reusable peripheral drivers
 - [ ] Integrate FreeRTOS into the Linux-native build
 - [ ] Measure task scheduling latency, jitter, preemption, and CPU utilization
