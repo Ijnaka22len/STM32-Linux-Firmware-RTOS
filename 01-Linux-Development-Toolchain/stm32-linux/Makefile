@@ -1,31 +1,60 @@
-# STM32F446RE native Linux cross-compilation and programming workflow.
-# GNU Make drives ARM GCC, objcopy, and OpenOCD over the onboard ST-LINK.
+
+# STM32F446RE — Linux-Based Bare-Metal Firmware Development
+#
+# Host: Debian GNU/Linux 13
+# Target: STM32F446RE (ARM Cortex-M4)
+# Programmer/Debugger: ST-LINK/V2-1, SWD
+#
+# Build artifacts: ELF, BIN, HEX, and linker MAP.
+# Flash operations use a verified ST-LINK SWD frequency of 1800 kHz.
 
 .DEFAULT_GOAL := all
 
 TARGET := stm32_blinky
-BUILD := build
+BUILD  := build
 
-CC := arm-none-eabi-gcc
+# ARM GNU toolchain
+CC      := arm-none-eabi-gcc
 OBJCOPY := arm-none-eabi-objcopy
-SIZE := arm-none-eabi-size
-GDB := gdb-multiarch
+SIZE    := arm-none-eabi-size
+GDB     := gdb-multiarch
 OPENOCD := openocd
 
+# Cortex-M4 compilation
 CPUFLAGS := -mcpu=cortex-m4 -mthumb
-CFLAGS := $(CPUFLAGS) -std=gnu11 -O0 -g3 -Wall -Wextra \
-          -ffreestanding -ffunction-sections -fdata-sections
-LDFLAGS := $(CPUFLAGS) -T STM32F446RE.ld -nostdlib \
-           -Wl,--gc-sections -Wl,-Map=$(BUILD)/$(TARGET).map
 
+CFLAGS := $(CPUFLAGS) \
+          -std=gnu11 \
+          -O0 -g3 \
+          -Wall -Wextra \
+          -ffreestanding \
+          -ffunction-sections \
+          -fdata-sections
+
+LDFLAGS := $(CPUFLAGS) \
+           -T STM32F446RE.ld \
+           -nostdlib \
+           -Wl,--gc-sections \
+           -Wl,-Map=$(BUILD)/$(TARGET).map
+
+# Firmware source files
 SOURCES := Core/main.c Core/startup.c
+
 ELF := $(BUILD)/$(TARGET).elf
 BIN := $(BUILD)/$(TARGET).bin
 HEX := $(BUILD)/$(TARGET).hex
 
-.PHONY: all flash debug-server debug clean
+# ST-LINK configuration
+SWD_SPEED ?= 1800
 
-# Produce ELF, raw binary, and Intel HEX images.
+OPENOCD_CONFIG := -f interface/stlink.cfg \
+                  -c "transport select swd" \
+                  -c "adapter speed $(SWD_SPEED)" \
+                  -f target/stm32f4x.cfg
+
+.PHONY: all flash debug-server debug clean size
+
+# Compile and generate firmware images.
 all: $(ELF) $(BIN) $(HEX)
 
 $(BUILD):
